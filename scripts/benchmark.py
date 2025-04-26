@@ -27,7 +27,6 @@ def main():
 
     device = torch.device("cpu")
 
-    # Load model dynamically
     try:
         model = getattr(models, args.model_name)(pretrained=True).to(device)
     except AttributeError:
@@ -36,7 +35,6 @@ def main():
 
     model.eval()
 
-    # Set up transforms
     transform = transforms.Compose([
         transforms.Resize(224),
         transforms.CenterCrop(224),
@@ -44,7 +42,6 @@ def main():
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
-    # Prepare dataset
     dataset = datasets.ImageFolder(args.data_dir, transform=transform)
     dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False)
 
@@ -103,10 +100,8 @@ def main():
         'ecometrics': [energy_wh, co2_emissions, tree_days]
     }
 
-    # Ensure benchmarks/ directory exists
     os.makedirs('benchmarks', exist_ok=True)
 
-    # Look at existing benchmark files to count runs
     existing_files = [f for f in os.listdir('benchmarks') if f.startswith(args.model_name)]
     run_number = len(existing_files) + 1
 
