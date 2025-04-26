@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-25T23:32:54.861518",
+    "model": "googlenet",
+    "device": "rpi-4b",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.2957940745353699,
+        69.3505,
+        1108.76953125
+    ],
+    "ecometrics": [
+        0.04417185219128926,
+        2.0981629790862396e-05,
+        0.00036489790940630253
+    ]
+}
