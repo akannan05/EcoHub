@@ -1,0 +1,61 @@
+/* Main container */
+.homepage {
+    min-height: 100vh;
+    background-color: white;
+    color: #2f855a; /* A nice deep green */
+    padding: 40px 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Search bar */
+  .search-container {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #38a169;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .search-input:focus {
+    border-color: #2f855a;
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.3);
+  }
+  
+  /* Card Grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  /* Individual Card */
+  .card {
+    background-color: #f0fff4;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 128, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 128, 0, 0.15);
+  }
+  
+  .card h2 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+  
+  .card p {
+    color: #2f855a;
+  }
+  
