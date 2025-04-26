@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 // Internal styles to avoid external CSS issues
 const styles = {
   container: {
@@ -118,6 +118,7 @@ const AuthForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const navigate = useNavigate();
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
@@ -126,6 +127,7 @@ const AuthForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(isLogin ? 'Login attempted with:' : 'Signup attempted with:', { email, password, name });
+    navigate('/home');
   };
 
   return (
