@@ -1,3 +1,5 @@
+# sudo docker run --rm -v $(pwd)/scripts/benchmark-wrappers:/scripts -v $(pwd)/data/imagenet-10:/app/images aiintegrate/mobilenet:arm64 bash -c "pip install psutil && python3 /scripts/mobilenet-arm64.py --cmd "python3 /app/run_mobilenet.py --data /app/images""
+
 import time
 import psutil
 import subprocess
