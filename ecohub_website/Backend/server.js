@@ -20,7 +20,6 @@ app.use('/api/user', userRoutes)
 
 
 
-
 mongoose.connect(process.env.MONGO_URI) //connecets to the mongo atlas db server
   .then(() => { //success
     app.listen(4000, () => { // use local host 4000
