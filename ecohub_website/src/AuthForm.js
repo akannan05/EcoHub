@@ -118,6 +118,7 @@ const AuthForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [spec, setSpec] = useState('');
   const navigate = useNavigate();
 
   const toggleForm = () => {
@@ -178,6 +179,22 @@ const AuthForm = () => {
                 required
               />
             </div>
+
+            {!isLogin && (
+              <div style={styles.inputGroup}>
+                <select
+                  style={styles.input}
+                  value={spec}
+                  onChange={(e) => setSpec(e.target.value)}
+                  required
+                >
+                  <option value="">Select Spec</option> {/* Default option */}
+                  <option value="Edge">Edge</option>
+                  <option value="LaptopPC">Laptop/PC</option>
+                  <option value="Cloud">Cloud</option>
+                </select>
+              </div>
+            )}
             
             {isLogin && (
               <div style={styles.forgotPassword}>
