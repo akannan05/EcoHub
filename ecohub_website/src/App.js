@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthForm from './AuthForm';
 import HomePage from './HomePage';
+import ComparePage from './ComparePage';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<AuthForm />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/compare" element={<ComparePage />} />
           {/* Redirect root to login page */}
           <Route path="/" element={<Navigate to="/login" replace />} />
           {/* Catch all for undefined routes */}
