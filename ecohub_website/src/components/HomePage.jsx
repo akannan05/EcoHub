@@ -168,14 +168,13 @@ export default function HomePage() {
     // Sort by timestamp (newest first)
     allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-
     const transformed = allData.map(data => ({
       title: data.model, // From your JSON
       icon: '🤖', // (Optional) Set a default or better based on device/model
       description: `Tested on ${data.device} using ${data['model-category']}.`,
       category: data['model-category'],
       carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
-      accuracy: data.dataset_info ? `${data.dataset_info[1]}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+      efficiency: data['efficiency-info'] ? `${data['efficiency-info'][1].toFixed(2)}%` : 'N/A', // Maybe adjust based on your dataset info meaning
       useCase: guessUseCase(data['model-category']), // We'll define this below too
       raw: data // Keep original data in case you need in lightbox
     }));
@@ -380,8 +379,8 @@ export default function HomePage() {
               <p className="model-description">{model.description}</p>
               <div className="model-details">
                 <div className="detail-item">
-                  <span className="detail-label">Accuracy:</span>
-                  <span className="detail-value">{model.accuracy}</span>
+                  <span className="detail-label">CPU Efficiency:</span>
+                  <span className="detail-value">{model.efficiency}</span>
                 </div>
                 <div className="detail-item">
                   <span className="detail-label">Use Case:</span>
