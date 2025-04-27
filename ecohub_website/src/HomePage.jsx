@@ -228,7 +228,7 @@ export default function HomePage() {
                <h3>{model.title}</h3>
                <p className="model-description">{model.description}</p>
               
-               <div className="model-details">
+               <div className="mowhy del-details">
                  <div className="detail-item">
                    <span className="detail-label">Accuracy:</span>
                    <span className="detail-value">{model.accuracy}</span>
@@ -267,3 +267,5 @@ export default function HomePage() {
    </div>
  );
 }
+
+
