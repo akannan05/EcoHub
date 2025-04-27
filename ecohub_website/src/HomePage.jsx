@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
 
@@ -120,7 +121,19 @@ export default function HomePage() {
  const [hoveredCard, setHoveredCard] = useState(null);
  const [searchTerm, setSearchTerm] = useState('');
  const [selectedCategory, setSelectedCategory] = useState('All');
-
+ const navigation = useNavigate();
+ 
+ useEffect(() => {
+  const storedEmail = localStorage.getItem('userEmail');
+  if (storedEmail) {
+    console.log('User is logged in with email:', storedEmail);
+    // you can also set it to a state if you want to show it on the page
+  } else {
+    console.log('No user is logged in.');
+    // maybe redirect to login page if you want
+    navigation('/login')
+  }
+}, []);
 
  const handleCardClick = (index) => {
    // Toggle the flipped state of the card

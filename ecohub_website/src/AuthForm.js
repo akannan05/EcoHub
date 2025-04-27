@@ -5,6 +5,13 @@ const AuthForm = () => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showTrees, setShowTrees] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
   const navigation = useNavigate();
 
   // Reset and trigger tree animation when mode changes
@@ -28,6 +35,15 @@ const AuthForm = () => {
   // Function to trigger tree animation on form submit
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const userEmail = formData.email;
+    const loginSuccessful = true; // replace this with your real login success check
+
+    if (loginSuccessful) {
+      console.log('we got here')
+      localStorage.setItem('userEmail', userEmail);
+    }
+
     setShowTrees(false);
     setTimeout(() => {
       setShowTrees(true);
@@ -86,6 +102,7 @@ const AuthForm = () => {
                   type="email"
                   className="form-input"
                   placeholder="Email"
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                 />
               </div>
