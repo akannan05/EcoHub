@@ -92,7 +92,6 @@
   right: 30px;
   display: flex;
   gap: 30px;
-  z-index: 10;
  }
  
  
@@ -387,7 +386,7 @@
  
  /* Card Container - Override index.css flip effect */
  .card-container {
-  height: 400px;
+  height: 500px;
   margin-bottom: 4%;
   animation: fadeIn 0.5s ease-out backwards;
   animation-fill-mode: both;
