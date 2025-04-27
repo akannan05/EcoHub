@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt')
 
 const Schema = mongoose.Schema
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true
   },
-  name: {
+  username: {
     type: String,
     required: true
   },
@@ -26,6 +26,7 @@ const userSchema = new Schema({
 
 
 userSchema.statics.login = async function(email, password) {
+  console.log("login12313123")
   if (!email || !password) {
       throw Error('Email and password must be filled out')
   }

@@ -5,7 +5,7 @@ const route = express.Router();
 const {
   loginUser,
   signupUser,
-} = require('../Controller/usercontroller');
+} = require('../Controllers/userControllers');
 
 route.post('/login', loginUser);
 
