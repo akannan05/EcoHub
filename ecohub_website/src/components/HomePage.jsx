@@ -118,22 +118,24 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function HomePage() {
- const [searchTerm, setSearchTerm] = useState('');
- const [selectedCategory, setSelectedCategory] = useState('All');
- const [visibleModels, setVisibleModels] = useState([]);
- const [isLoading, setIsLoading] = useState(true);
- const [showScrollTop, setShowScrollTop] = useState(false);
- const [activeTab, setActiveTab] = useState('Models');
- const [selectedModel, setSelectedModel] = useState(null);
- const [showLightbox, setShowLightbox] = useState(false);
- 
- const [models, setModels] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [visibleModels, setVisibleModels] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeTab, setActiveTab] = useState('Models');
+  const [selectedModel, setSelectedModel] = useState(null);
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [uploadFile, setUploadFile] = useState(null);
 
- const [stats, setStats] = useState({
-   totalModels: models.length,
-   lowCarbonModels: models.filter(m => m.carbonFootprint === 'Low' || m.carbonFootprint === 'Very Low').length,
-   highAccuracyModels: models.filter(m => m.accuracy !== 'N/A' && parseInt(m.accuracy) >= 90).length
- });
+  const [models, setModels] = useState([]);
+
+  const [stats, setStats] = useState({
+    totalModels: models.length,
+    lowCarbonModels: models.filter(m => m.carbonFootprint === 'Low' || m.carbonFootprint === 'Very Low').length,
+    highAccuracyModels: models.filter(m => m.accuracy !== 'N/A' && parseInt(m.accuracy) >= 90).length
+  });
   const scrollTopRef = useRef(null);
   const navigate = useNavigate();
 
@@ -154,57 +156,57 @@ export default function HomePage() {
     return matchesSearch && matchesCategory;
   });
 
- useEffect(() => {
-  const fetchBenchmarks = async () => {
-    const indexRes = await fetch('/scripts/benchmarks/index.json');
-    const files = await indexRes.json();
+  useEffect(() => {
+    const fetchBenchmarks = async () => {
+      const indexRes = await fetch('/scripts/benchmarks/index.json');
+      const files = await indexRes.json();
 
-    const filePromises = files.map(file =>
-      fetch(`/scripts/benchmarks/${file}`).then(res => res.json())
-    );
+      const filePromises = files.map(file =>
+        fetch(`/scripts/benchmarks/${file}`).then(res => res.json())
+      );
 
-    const allData = await Promise.all(filePromises);
+      const allData = await Promise.all(filePromises);
 
-    // Sort by timestamp (newest first)
-    allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      // Sort by timestamp (newest first)
+      allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
 
-    const transformed = allData.map(data => ({
-      title: data.model, // From your JSON
-      icon: '🤖', // (Optional) Set a default or better based on device/model
-      description: `Tested on ${data.device} using ${data['model-category']}.`,
-      category: data['model-category'],
-      carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
-      accuracy: data.dataset_info ? `${data.dataset_info[1]}%` : 'N/A', // Maybe adjust based on your dataset info meaning
-      useCase: guessUseCase(data['model-category']), // We'll define this below too
-      raw: data // Keep original data in case you need in lightbox
-    }));
+      const transformed = allData.map(data => ({
+        title: data.model, // From your JSON
+        icon: '🤖', // (Optional) Set a default or better based on device/model
+        description: `Tested on ${data.device} using ${data['model-category']}.`,
+        category: data['model-category'],
+        carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
+        accuracy: data.dataset_info ? `${data.dataset_info[1]}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+        useCase: guessUseCase(data['model-category']), // We'll define this below too
+        raw: data // Keep original data in case you need in lightbox
+      }));
 
-    setModels(transformed);
-  };
-  // Helper to label carbon footprint
-  const getCarbonFootprintLabel = (co2) => {
-    if (co2 < 0.01) return 'Very Low';
-    if (co2 < 0.05) return 'Low';
-    if (co2 < 0.1) return 'Moderate';
-    return 'High';
-  };
+      setModels(transformed);
+    };
+    // Helper to label carbon footprint
+    const getCarbonFootprintLabel = (co2) => {
+      if (co2 < 0.01) return 'Very Low';
+      if (co2 < 0.05) return 'Low';
+      if (co2 < 0.1) return 'Moderate';
+      return 'High';
+    };
 
-  // Helper to guess use case based on model category
-  const guessUseCase = (category) => {
-    switch (category.toLowerCase()) {
-      case 'classification':
-        return 'Image Classification, Object Detection';
-      case 'segmentation':
-        return 'Semantic Segmentation, Medical Imaging';
-      case 'detection':
-        return 'Object Detection, Face Detection';
-      default:
-        return 'General ML Tasks';
-    }
-  };
-  fetchBenchmarks();
-}, []);
+    // Helper to guess use case based on model category
+    const guessUseCase = (category) => {
+      switch (category.toLowerCase()) {
+        case 'classification':
+          return 'Image Classification, Object Detection';
+        case 'segmentation':
+          return 'Semantic Segmentation, Medical Imaging';
+        case 'detection':
+          return 'Object Detection, Face Detection';
+        default:
+          return 'General ML Tasks';
+      }
+    };
+    fetchBenchmarks();
+  }, []);
 
 
   // Animate cards appearing one by one
@@ -458,6 +460,34 @@ export default function HomePage() {
                   )}
                 </ul>
               </div>
+              {/* Deploy My Data Button */}
+              <button
+                className="learn-more-btn"
+                style={{ marginTop: 24 }}
+                onClick={() => setShowUploadModal(true)}
+              >
+                Deploy My Data
+              </button>
+              {/* Upload Modal */}
+              {showUploadModal && (
+                <div className="lightbox-overlay active" style={{ zIndex: 2000 }}>
+                  <div className="lightbox-content" style={{ maxWidth: 400, textAlign: 'center' }}>
+                    <button className="lightbox-close" onClick={() => setShowUploadModal(false)}>✕</button>
+                    <h2>Upload Your Data</h2>
+                    <form>
+                      <input
+                        type="file"
+                        onChange={e => setUploadFile(e.target.files[0])}
+                        required
+                        style={{ margin: '20px 0' }}
+                      />
+                      <button type="button" className="learn-more-btn" style={{ marginTop: 10 }} disabled={!uploadFile}>
+                        Upload & Deploy
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

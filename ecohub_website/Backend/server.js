@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 // const modelRoutes = require('./routes/models')
 const userRoutes = require('./Routes/users')
+const uploadRoutes = require('./Routes/upload');
 
 
 
@@ -14,6 +15,7 @@ app.use(express.json()) // allows server to be able to parse JSON
 // routing
 // app.use('/api/models', modelRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/upload', uploadRoutes);
 
 
 console.log(process.env.MONGO_URI)
