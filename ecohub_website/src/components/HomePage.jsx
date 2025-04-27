@@ -175,6 +175,8 @@ export default function HomePage() {
       category: data['model-category'],
       carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
       efficiency: data['efficiency-info'] ? `${data['efficiency-info'][1].toFixed(2)}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+      inference: data['efficiency-info'] ? `${data['efficiency-info'][0].toFixed(2)}s` : 'N/A',
+      memory: data['efficiency-info'] ? `${data['efficiency-info'][2].toFixed(2)}MB` : 'N/A',
       useCase: guessUseCase(data['model-category']), // We'll define this below too
       raw: data // Keep original data in case you need in lightbox
     }));
@@ -437,8 +439,16 @@ export default function HomePage() {
                   <span className="spec-value">{selectedModel.carbonFootprint}</span>
                 </div>
                 <div className="spec-item">
-                  <span className="spec-label">Accuracy</span>
-                  <span className="spec-value">{selectedModel.accuracy}</span>
+                  <span className="spec-label">Average Inference Time (s)</span>
+                  <span className="spec-value">{selectedModel.inference}</span>
+                </div>
+                <div className="spec-item">
+                  <span className="spec-label">CPU Efficiency (%)</span>
+                  <span className="spec-value">{selectedModel.efficiency}</span>
+                </div>
+                <div className="spec-item">
+                  <span className="spec-label">Peak Memory Usage (MB)</span>
+                  <span className="spec-value">{selectedModel.memory}</span>
                 </div>
                 <div className="spec-item">
                   <span className="spec-label">Category</span>
