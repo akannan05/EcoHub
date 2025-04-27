@@ -6,8 +6,8 @@ export const useSignup = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { dispatch } = useAuthContext();
 
-    const signup = async (email, password, username, spec) => {
-        if (!email || !password || !username || !spec) {
+    const signup = async (email, password, username) => {
+        if (!email || !password || !username) {
             console.log('fields not fully filled out');
             setError('All fields must be filled out');
             return { error: 'All fields must be filled out' };
@@ -15,12 +15,12 @@ export const useSignup = () => {
 
         setIsLoading(true);
         setError(null);
-        console.log(JSON.stringify({ email, password, username, spec}));
+        console.log(JSON.stringify({ email, password, username}));
 
         const response = await fetch('/api/users/signup', { 
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, username, spec})
+            body: JSON.stringify({ email, password, username})
         });
 
         const json = await response.json();

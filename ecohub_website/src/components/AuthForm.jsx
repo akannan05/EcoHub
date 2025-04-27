@@ -13,7 +13,7 @@ const AuthForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [spec, setSpec] = useState('');
+  // const [spec, setSpec] = useState('');
   const { signup, isLoading } = useSignup();
   const navigate = useNavigate();
 
@@ -73,7 +73,7 @@ const AuthForm = () => {
         }
 
       // If no validation errors, proceed with signup
-        const response = await signup(email, password, username, spec);
+        const response = await signup(email, password, username);
 
         if (response && response.error) {
           alert(response.error);
@@ -220,7 +220,7 @@ const AuthForm = () => {
               </div>
             </div>
             
-            {isSignUpMode && (
+            {/* {isSignUpMode && (
               <div className="form-group">
                 <select className="form-input"
                   required
@@ -233,7 +233,7 @@ const AuthForm = () => {
                   <option value="Cloud">Cloud</option>
                 </select>
               </div>
-            )}
+            )} */}
             
             {!isSignUpMode && (
               <div className="forgot-password">
