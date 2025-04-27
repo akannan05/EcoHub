@@ -3,7 +3,7 @@ import './HomePage.css';
 import { FaSearch, FaTimes, FaArrowUp, FaLeaf, FaChartLine, FaBrain, FaTimes as FaClose } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-
+const emojis = ['🌱', '🦁', '🌤️', '🎨', '🔍', '📜', '🔎', '⚡', '🛒', '🧠', '🖼️', '🌞', '🤖']
 // // ML models data with environmental impact information
 // const models = [
 //  {
@@ -171,9 +171,9 @@ export default function HomePage() {
     allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
 
-    const transformed = allData.map(data => ({
+    const transformed = allData.map((data, index) => ({
       title: data.model, // From your JSON
-      icon: '🤖', // (Optional) Set a default or better based on device/model
+      icon: emojis[index % emojis.length], // (Optional) Set a default or better based on device/model
       description: `Tested on ${data.device} using ${data['model-category']}.`,
       category: data['model-category'],
       carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
