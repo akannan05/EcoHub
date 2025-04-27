@@ -62,7 +62,7 @@ We provide broad visual analytics across the entire benchmarking database, inclu
 - **Benchmarking:** Python (PyTorch, torchvision), Bash scripting
 - **Hardware Used:** Raspberry Pi 4B (ARM64), MacBook M2 Air (ARM64)
 
-# Getting Started
+## Getting Started
 
 The web application can be accessed from the following link:  
 **[Coming Soon — Deployment in Progress]**
