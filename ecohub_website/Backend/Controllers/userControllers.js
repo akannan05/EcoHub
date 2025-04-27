@@ -24,9 +24,9 @@ async function loginUser(req,res) {
 
 async function signupUser(req,res){
 
-  const {email, password, username, spec} = req.body;
+  const {email, password, username} = req.body;
   // now we want to make sure we receive all the data
-  if (!email || !password || !username || !spec){ 
+  if (!email || !password || !username){ 
       console.log("Didn't recieve all correct data");
       //now we want to send a response saying that we didn't get all information
       //send 400 code because we had invalid syntax
@@ -41,7 +41,7 @@ async function signupUser(req,res){
           res.status(400).json({error: "This email already exists"});
       }
       // now I want to create the user
-      const user = await User.signup(email,password, username, spec);
+      const user = await User.signup(email,password, username);
       //console.log(user._id);
       //const token = createToken(user._id);
       return res.status(200).json(user)

@@ -167,20 +167,24 @@ export default function HomePage() {
 
       const allData = await Promise.all(filePromises);
 
-      // Sort by timestamp (newest first)
-      allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    // Sort by timestamp (newest first)
+    allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
 
-      const transformed = allData.map(data => ({
-        title: data.model, // From your JSON
-        icon: '🤖', // (Optional) Set a default or better based on device/model
-        description: `Tested on ${data.device} using ${data['model-category']}.`,
-        category: data['model-category'],
-        carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
-        accuracy: data.dataset_info ? `${data.dataset_info[1]}%` : 'N/A', // Maybe adjust based on your dataset info meaning
-        useCase: guessUseCase(data['model-category']), // We'll define this below too
-        raw: data // Keep original data in case you need in lightbox
-      }));
+    const transformed = allData.map(data => ({
+      title: data.model, // From your JSON
+      icon: '🤖', // (Optional) Set a default or better based on device/model
+      description: `Tested on ${data.device} using ${data['model-category']}.`,
+      category: data['model-category'],
+      carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
+      accuracy: data.dataset_info ? `${data.dataset_info[1]}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+      useCase: guessUseCase(data['model-category']), // We'll define this below too
+      efficiency: data['efficiency-info'] ? `${data['efficiency-info'][1].toFixed(2)}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+      inference: data['efficiency-info'] ? `${data['efficiency-info'][0].toFixed(2)}s` : 'N/A',
+      memory: data['efficiency-info'] ? `${data['efficiency-info'][2].toFixed(2)}MB` : 'N/A',
+      raw: data // Keep original data in case you need in lightbox
+      
+    }));
 
       setModels(transformed);
     };
@@ -382,8 +386,8 @@ export default function HomePage() {
               <p className="model-description">{model.description}</p>
               <div className="model-details">
                 <div className="detail-item">
-                  <span className="detail-label">Accuracy:</span>
-                  <span className="detail-value">{model.accuracy}</span>
+                  <span className="detail-label">CPU Efficiency:</span>
+                  <span className="detail-value">{model.efficiency}</span>
                 </div>
                 <div className="detail-item">
                   <span className="detail-label">Use Case:</span>
@@ -440,8 +444,16 @@ export default function HomePage() {
                   <span className="spec-value">{selectedModel.carbonFootprint}</span>
                 </div>
                 <div className="spec-item">
-                  <span className="spec-label">Accuracy</span>
-                  <span className="spec-value">{selectedModel.accuracy}</span>
+                  <span className="spec-label">Average Inference Time (s)</span>
+                  <span className="spec-value">{selectedModel.inference}</span>
+                </div>
+                <div className="spec-item">
+                  <span className="spec-label">CPU Efficiency (%)</span>
+                  <span className="spec-value">{selectedModel.efficiency}</span>
+                </div>
+                <div className="spec-item">
+                  <span className="spec-label">Peak Memory Usage (MB)</span>
+                  <span className="spec-value">{selectedModel.memory}</span>
                 </div>
                 <div className="spec-item">
                   <span className="spec-label">Category</span>

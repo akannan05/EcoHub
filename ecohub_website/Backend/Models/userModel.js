@@ -16,11 +16,11 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  },
-  spec: {
-    type: String,
-    required: true,
   }
+  // spec: {
+  //   type: String,
+  //   required: true,
+  // }
 
 }, { timestamps: true})
 
@@ -43,10 +43,10 @@ userSchema.statics.login = async function(email, password) {
   return user
 }
 
-userSchema.statics.signup = async function(email, password, username, spec) {
+userSchema.statics.signup = async function(email, password, username) {
   // data validation
   
-  if (!email || !password || !username || !spec) {
+  if (!email || !password || !username) {
       console.log('Fields must be filled out')
   }
   
@@ -62,7 +62,7 @@ userSchema.statics.signup = async function(email, password, username, spec) {
   const uniquify = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, uniquify)
   
-  const userData = await this.create({ email, password: hash, username, spec})
+  const userData = await this.create({ email, password: hash, username})
   // 'this' referes to the model not a specific instance of the schema
   return userData
 }
