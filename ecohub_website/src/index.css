@@ -44,14 +44,6 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
- /* Flip on hover (unless the card is already flipped) */
-.card-container:not(.flipped):hover .card {
-  transform: rotateY(180deg);
-}
- /* Keep flipped when the container has the 'flipped' class */
-.card-container.flipped .card {
-  transform: rotateY(180deg);
-}
  .card-front, .card-back {
   position: absolute;
   width: 100%;

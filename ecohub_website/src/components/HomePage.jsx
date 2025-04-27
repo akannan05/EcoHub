@@ -224,13 +224,6 @@ export default function HomePage() {
       <div className="hero-section">
         <div className="hero-tabs">
           <div
-            className={`hero-tab ${activeTab === 'Compare' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('Compare'); navigate('/compare'); }}
-            style={{ marginRight: '30px' }}
-          >
-            Compare Models
-          </div>
-          <div
             className={`hero-tab ${activeTab === 'Models' ? 'active' : ''}`}
             onClick={() => setActiveTab('Models')}
           >
@@ -247,6 +240,13 @@ export default function HomePage() {
             onClick={() => setActiveTab('Contact')}
           >
             Contact
+          </div>
+          <div
+            className={`hero-tab ${activeTab === 'Compare' ? 'active' : ''}`}
+            onClick={() => { setActiveTab('Compare'); navigate('/compare'); }}
+            style={{ marginRight: '30px' }}
+          >
+            Compare Models
           </div>
         </div>
         <h1>Eco Hub</h1>
