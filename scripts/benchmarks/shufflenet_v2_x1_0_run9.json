@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-25T23:18:31.102590",
+    "model": "shufflenet_v2_x1_0",
+    "device": "rpi-4b",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.12098378658294678,
+        67.9215,
+        1094.7421875
+    ],
+    "ecometrics": [
+        0.01945266975959142,
+        9.240018135805925e-06,
+        0.00016069596757923346
+    ]
+}

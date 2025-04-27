@@ -7,9 +7,39 @@ TDP=5.1
 BATCH_SIZE=1
 NUM_IMAGES=100
 
-MODELS=("squeezenet1_0" "shufflenet_v2_x1_0" "mobilenet_v2" "mobilenet_v3_small", "mobilenet_v3_large", "mnasnet1_0")
+NUM_RUNS=5  # Number of runs per model
 
-NUM_RUNS=5  # <-- NEW: number of runs per model
+# Choose models based on device
+if [ "$DEVICE_NAME" == "rpi-4b" ]; then
+    MODELS=(
+        "squeezenet1_0"
+        "shufflenet_v2_x1_0"
+        "mobilenet_v2"
+        "mobilenet_v3_large"
+        "mobilenet_v3_small"
+        "resnet18"
+        "googlenet"
+        "mnasnet1_0"
+    )
+else
+    MODELS=(
+        "resnet18"
+        "alexnet"
+        "vgg16"
+        "squeezenet1_0"
+        "densenet161"
+        "inception_v3"
+        "googlenet"
+        "shufflenet_v2_x1_0"
+        "mobilenet_v2"
+        "mobilenet_v3_large"
+        "mobilenet_v3_small"
+        "resnext50_32x4d"
+        "wide_resnet50_2"
+        "mnasnet1_0"
+        "efficientnet_b0"
+    )
+fi
 
 for MODEL_NAME in "${MODELS[@]}"
 do
@@ -20,7 +50,7 @@ do
     for (( run=1; run<=NUM_RUNS; run++ ))
     do
         echo "--- Run #$run ---"
-        python3 benchmark.py \
+        python benchmark.py \
             --data-dir "$DATA_DIR" \
             --category "$CATEGORY" \
             --device-name "$DEVICE_NAME" \
