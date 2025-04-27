@@ -1,11 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useSignup } from "../Hooks/useSignup";
+import { useLogin } from '../Hooks/useLogin';
+
 
 const AuthForm = () => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showTrees, setShowTrees] = useState(false);
   const navigation = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [spec, setSpec] = useState('');
+  const { signup, isLoading } = useSignup();
+  const navigate = useNavigate();
+
+  const {login, error} = useLogin()
+
 
   // Reset and trigger tree animation when mode changes
   useEffect(() => {
@@ -26,8 +39,100 @@ const AuthForm = () => {
   };
 
   // Function to trigger tree animation on form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSignUpMode) {
+        const validationErrors = [];
+
+        if (username.length < 5) {
+          validationErrors.push('Username must be at least 5 characters.');
+        }
+
+        // Password validation
+        if (password.length < 8) {
+          validationErrors.push('Password must be at least 8 characters.');
+        }
+
+        if (!/[A-Z]/.test(password)) {
+          validationErrors.push('Password must contain at least one uppercase letter.');
+        }
+
+        if (!/[a-z]/.test(password)) {
+          validationErrors.push('Password must contain at least one lowercase letter.');
+        }
+
+        if (!/\d/.test(password)) {
+          validationErrors.push('Password must contain at least one digit.');
+        }
+
+
+        if (validationErrors.length > 0) {
+          // Display all validation errors
+          alert(validationErrors.join('\n'));
+          return;
+        }
+
+      // If no validation errors, proceed with signup
+        const response = await signup(email, password, username, spec);
+
+        if (response && response.error) {
+          alert(response.error);
+          return;
+        } else {
+          navigate('/home');
+        }
+
+    } else {
+      const loginResponse = await login(email, password);    
+      if (loginResponse && loginResponse.error) {
+        alert(loginResponse.error);
+        return;
+      }
+      
+      navigate('/home');
+    }
+
+    // const validationErrors = [];
+
+    // if (username.length < 5) {
+    //   validationErrors.push('Username must be at least 5 characters.');
+    // }
+
+    // // Password validation
+    // if (password.length < 8) {
+    //   validationErrors.push('Password must be at least 8 characters.');
+    // }
+
+    // if (!/[A-Z]/.test(password)) {
+    //   validationErrors.push('Password must contain at least one uppercase letter.');
+    // }
+
+    // if (!/[a-z]/.test(password)) {
+    //   validationErrors.push('Password must contain at least one lowercase letter.');
+    // }
+
+    // if (!/\d/.test(password)) {
+    //   validationErrors.push('Password must contain at least one digit.');
+    // }
+
+
+    // if (validationErrors.length > 0) {
+    //   // Display all validation errors
+    //   alert(validationErrors.join('\n'));
+    //   return;
+    // }
+
+    // // If no validation errors, proceed with signup
+    // const response = await signup(email, password, username, spec);
+
+    // if (response && response.error) {
+    //   alert(response.error);
+    // } else {
+    //   navigate('/login');
+    // }
+
+
+
     setShowTrees(false);
     setTimeout(() => {
       setShowTrees(true);
@@ -74,6 +179,8 @@ const AuthForm = () => {
                     type="text"
                     className="form-input"
                     placeholder="Name"
+                    onChange={(e) => setUsername(e.target.value)}
+                    value={username}
                     required
                   />
                 </div>
@@ -86,6 +193,8 @@ const AuthForm = () => {
                   type="email"
                   className="form-input"
                   placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                   required
                 />
               </div>
@@ -97,6 +206,8 @@ const AuthForm = () => {
                   type={showPassword ? 'text' : 'password'}
                   className="form-input"
                   placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                   required
                 />
                 <button
@@ -111,7 +222,11 @@ const AuthForm = () => {
             
             {isSignUpMode && (
               <div className="form-group">
-                <select className="form-input" required>
+                <select className="form-input"
+                  required
+                  onChange={(e) => setSpec(e.target.value)}
+                  value={spec}
+                  >
                   <option value="">Select Spec</option>
                   <option value="Edge">Edge</option>
                   <option value="LaptopPC">Laptop/PC</option>

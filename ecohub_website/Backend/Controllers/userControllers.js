@@ -4,10 +4,8 @@ const User = require('../Models/userModel')
 const model = require('../Models/modelModel')
 
 
-
-
 async function loginUser(req,res) {
-  //console.log("We are calling loginUser here")
+  console.log("We are calling loginUser here")
   const { email, password} = req.body
   
   if (!email || !password) { // redundent check
@@ -15,6 +13,7 @@ async function loginUser(req,res) {
       return res.status(400).json({error: "Email or Password not found"})
   }
   try{
+    console.log("yes and no")
       const user = await User.login(email, password)
       //const token = createToken(user._id)
       return res.status(200).json({email,userId: user._id})
@@ -42,11 +41,17 @@ async function signupUser(req,res){
           res.status(400).json({error: "This email already exists"});
       }
       // now I want to create the user
-      const user = await User.signup(email,password, userName, fullName, courses);
+      const user = await User.signup(email,password, username, spec);
       //console.log(user._id);
       //const token = createToken(user._id);
       return res.status(200).json(user)
   } catch (error) {
       return res.status(400).json({error: error.message})
   }
+}
+
+
+module.exports = {
+  loginUser,
+  signupUser
 }
