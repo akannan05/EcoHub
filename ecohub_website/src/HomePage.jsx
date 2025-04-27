@@ -11,7 +11,7 @@ const cards = Array.from({ length: 12 }, (_, i) => ({
 export default function HomePage() {
  const [flippedCards, setFlippedCards] = useState({});
  const [hoveredCard, setHoveredCard] = useState(null);
-
+ const [searchTerm, setSearchTerm] = useState(''); 
 
  const handleCardClick = (index) => {
    setFlippedCards(prev => ({
@@ -30,7 +30,10 @@ export default function HomePage() {
      setHoveredCard(null);
    }
  };
-
+ 
+ const filteredCards = cards.filter(card =>
+  card.title.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
  return (
    <div className="homepage">
@@ -38,13 +41,14 @@ export default function HomePage() {
        <input
          type="text"
          placeholder="Search..."
+         onChange={(e) => setSearchTerm(e.target.value)}
          className="search-input"
        />
      </div>
 
 
      <div className="card-grid">
-       {cards.map((card, index) => (
+       {filteredCards.map((card, index) => (
          <div
            key={index}
            className={`card-container ${flippedCards[index] ? 'flipped' : ''} ${hoveredCard === index ? 'hovered' : ''}`}
