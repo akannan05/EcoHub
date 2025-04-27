@@ -49,11 +49,6 @@ Users input rough values (model size, inference frequency, deployment duration, 
 
 This gives developers a lightweight way to make greener decisions even before deploying.
 
-**Visualization:**  
-We provide broad visual analytics across the entire benchmarking database, including:
-- Model efficiency bargraphs (both efficiency and environmental metrics)
-- Device-specific breakdowns
-
 ## Tech Stack
 
 - **Frontend:** React.js
