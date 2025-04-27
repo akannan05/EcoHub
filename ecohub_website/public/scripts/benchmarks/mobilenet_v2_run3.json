@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-25T22:42:42.311053",
+    "model": "mobilenet_v2",
+    "device": "rpi-4b",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.2462140727043152,
+        70.087,
+        1109.703125
+    ],
+    "ecometrics": [
+        0.03716308200359344,
+        1.7652463951706883e-05,
+        0.00030699937307316315
+    ]
+}

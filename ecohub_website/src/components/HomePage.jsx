@@ -3,117 +3,117 @@ import './HomePage.css';
 import { FaSearch, FaTimes, FaArrowUp, FaLeaf, FaChartLine, FaBrain, FaTimes as FaClose } from 'react-icons/fa';
 
 
-// ML models data with environmental impact information
-const models = [
- {
-   title: 'EcoBERT',
-   description: 'A lightweight BERT variant optimized for environmental text analysis with 60% reduced carbon footprint.',
-   icon: '🌱',
-   category: 'NLP',
-   carbonFootprint: 'Low',
-   accuracy: '92%',
-   useCase: 'Environmental sentiment analysis, greenwashing detection'
- },
- {
-   title: 'GreenVision',
-   description: 'Computer vision model for identifying endangered species with minimal computational requirements.',
-   icon: '🦁',
-   category: 'Computer Vision',
-   carbonFootprint: 'Very Low',
-   accuracy: '89%',
-   useCase: 'Wildlife monitoring, biodiversity assessment'
- },
- {
-   title: 'EcoForecast',
-   description: 'Time series prediction model for climate patterns with efficient architecture and reduced training cycles.',
-   icon: '🌤️',
-   category: 'Time Series',
-   carbonFootprint: 'Medium',
-   accuracy: '87%',
-   useCase: 'Climate prediction, resource optimization'
- },
- {
-   title: 'SustainableGAN',
-   description: 'Generative model for creating eco-friendly product designs with optimized architecture.',
-   icon: '🎨',
-   category: 'Generative',
-   carbonFootprint: 'Medium',
-   accuracy: 'N/A',
-   useCase: 'Sustainable product design, material optimization'
- },
- {
-   title: 'EcoClassifier',
-   description: 'Multi-class classification model for environmental data with minimal parameter count.',
-   icon: '🔍',
-   category: 'Classification',
-   carbonFootprint: 'Low',
-   accuracy: '94%',
-   useCase: 'Waste classification, environmental hazard detection'
- },
- {
-   title: 'GreenNLP',
-   description: 'Natural language processing model for environmental policy analysis with efficient tokenization.',
-   icon: '📜',
-   category: 'NLP',
-   carbonFootprint: 'Low',
-   accuracy: '91%',
-   useCase: 'Policy analysis, environmental regulation compliance'
- },
- {
-   title: 'EcoDetector',
-   description: 'Object detection model for environmental monitoring with reduced computational complexity.',
-   icon: '🔎',
-   category: 'Computer Vision',
-   carbonFootprint: 'Low',
-   accuracy: '88%',
-   useCase: 'Pollution detection, deforestation monitoring'
- },
- {
-   title: 'SustainableRL',
-   description: 'Reinforcement learning model for energy optimization with efficient training algorithms.',
-   icon: '⚡',
-   category: 'Reinforcement Learning',
-   carbonFootprint: 'Medium',
-   accuracy: 'N/A',
-   useCase: 'Energy management, resource allocation'
- },
- {
-   title: 'EcoRecommender',
-   description: 'Recommendation system for sustainable products with minimal data requirements.',
-   icon: '🛒',
-   category: 'Recommendation',
-   carbonFootprint: 'Very Low',
-   accuracy: '85%',
-   useCase: 'Sustainable product recommendations, eco-friendly alternatives'
- },
- {
-   title: 'GreenTransformer',
-   description: 'Transformer architecture optimized for environmental applications with reduced attention heads.',
-   icon: '🧠',
-   category: 'NLP',
-   carbonFootprint: 'Medium',
-   accuracy: '90%',
-   useCase: 'Environmental document analysis, sustainability reporting'
- },
- {
-   title: 'EcoSegmenter',
-   description: 'Image segmentation model for environmental analysis with efficient architecture.',
-   icon: '🖼️',
-   category: 'Computer Vision',
-   carbonFootprint: 'Low',
-   accuracy: '86%',
-   useCase: 'Habitat mapping, environmental change detection'
- },
- {
-   title: 'SustainableForecast',
-   description: 'Forecasting model for renewable energy production with minimal computational requirements.',
-   icon: '🌞',
-   category: 'Time Series',
-   carbonFootprint: 'Low',
-   accuracy: '93%',
-   useCase: 'Renewable energy prediction, grid management'
- }
-];
+// // ML models data with environmental impact information
+// const models = [
+//  {
+//    title: 'EcoBERT',
+//    description: 'A lightweight BERT variant optimized for environmental text analysis with 60% reduced carbon footprint.',
+//    icon: '🌱',
+//    category: 'NLP',
+//    carbonFootprint: 'Low',
+//    accuracy: '92%',
+//    useCase: 'Environmental sentiment analysis, greenwashing detection'
+//  },
+//  {
+//    title: 'GreenVision',
+//    description: 'Computer vision model for identifying endangered species with minimal computational requirements.',
+//    icon: '🦁',
+//    category: 'Computer Vision',
+//    carbonFootprint: 'Very Low',
+//    accuracy: '89%',
+//    useCase: 'Wildlife monitoring, biodiversity assessment'
+//  },
+//  {
+//    title: 'EcoForecast',
+//    description: 'Time series prediction model for climate patterns with efficient architecture and reduced training cycles.',
+//    icon: '🌤️',
+//    category: 'Time Series',
+//    carbonFootprint: 'Medium',
+//    accuracy: '87%',
+//    useCase: 'Climate prediction, resource optimization'
+//  },
+//  {
+//    title: 'SustainableGAN',
+//    description: 'Generative model for creating eco-friendly product designs with optimized architecture.',
+//    icon: '🎨',
+//    category: 'Generative',
+//    carbonFootprint: 'Medium',
+//    accuracy: 'N/A',
+//    useCase: 'Sustainable product design, material optimization'
+//  },
+//  {
+//    title: 'EcoClassifier',
+//    description: 'Multi-class classification model for environmental data with minimal parameter count.',
+//    icon: '🔍',
+//    category: 'Classification',
+//    carbonFootprint: 'Low',
+//    accuracy: '94%',
+//    useCase: 'Waste classification, environmental hazard detection'
+//  },
+//  {
+//    title: 'GreenNLP',
+//    description: 'Natural language processing model for environmental policy analysis with efficient tokenization.',
+//    icon: '📜',
+//    category: 'NLP',
+//    carbonFootprint: 'Low',
+//    accuracy: '91%',
+//    useCase: 'Policy analysis, environmental regulation compliance'
+//  },
+//  {
+//    title: 'EcoDetector',
+//    description: 'Object detection model for environmental monitoring with reduced computational complexity.',
+//    icon: '🔎',
+//    category: 'Computer Vision',
+//    carbonFootprint: 'Low',
+//    accuracy: '88%',
+//    useCase: 'Pollution detection, deforestation monitoring'
+//  },
+//  {
+//    title: 'SustainableRL',
+//    description: 'Reinforcement learning model for energy optimization with efficient training algorithms.',
+//    icon: '⚡',
+//    category: 'Reinforcement Learning',
+//    carbonFootprint: 'Medium',
+//    accuracy: 'N/A',
+//    useCase: 'Energy management, resource allocation'
+//  },
+//  {
+//    title: 'EcoRecommender',
+//    description: 'Recommendation system for sustainable products with minimal data requirements.',
+//    icon: '🛒',
+//    category: 'Recommendation',
+//    carbonFootprint: 'Very Low',
+//    accuracy: '85%',
+//    useCase: 'Sustainable product recommendations, eco-friendly alternatives'
+//  },
+//  {
+//    title: 'GreenTransformer',
+//    description: 'Transformer architecture optimized for environmental applications with reduced attention heads.',
+//    icon: '🧠',
+//    category: 'NLP',
+//    carbonFootprint: 'Medium',
+//    accuracy: '90%',
+//    useCase: 'Environmental document analysis, sustainability reporting'
+//  },
+//  {
+//    title: 'EcoSegmenter',
+//    description: 'Image segmentation model for environmental analysis with efficient architecture.',
+//    icon: '🖼️',
+//    category: 'Computer Vision',
+//    carbonFootprint: 'Low',
+//    accuracy: '86%',
+//    useCase: 'Habitat mapping, environmental change detection'
+//  },
+//  {
+//    title: 'SustainableForecast',
+//    description: 'Forecasting model for renewable energy production with minimal computational requirements.',
+//    icon: '🌞',
+//    category: 'Time Series',
+//    carbonFootprint: 'Low',
+//    accuracy: '93%',
+//    useCase: 'Renewable energy prediction, grid management'
+//  }
+// ];
 
 
 export default function HomePage() {
@@ -125,6 +125,9 @@ export default function HomePage() {
  const [activeTab, setActiveTab] = useState('Models');
  const [selectedModel, setSelectedModel] = useState(null);
  const [showLightbox, setShowLightbox] = useState(false);
+ 
+ const [models, setModels] = useState([]);
+
  const [stats, setStats] = useState({
    totalModels: models.length,
    lowCarbonModels: models.filter(m => m.carbonFootprint === 'Low' || m.carbonFootprint === 'Very Low').length,
@@ -138,16 +141,68 @@ export default function HomePage() {
 
 
  // Filter models based on search term and category
- const filteredModels = models.filter(model => {
+ const filteredModels = models.filter(x => {
    const matchesSearch =
-     model.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     model.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     model.useCase.toLowerCase().includes(searchTerm.toLowerCase());
+     x.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     x.device.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     x['model-category'].toLowerCase().includes(searchTerm.toLowerCase());
   
-   const matchesCategory = selectedCategory === 'All' || model.category === selectedCategory;
+   const matchesCategory = selectedCategory === 'All' || x.category === selectedCategory;
   
    return matchesSearch && matchesCategory;
  });
+
+ useEffect(() => {
+  const fetchBenchmarks = async () => {
+    const indexRes = await fetch('/scripts/benchmarks/index.json');
+    const files = await indexRes.json();
+
+    const filePromises = files.map(file =>
+      fetch(`/scripts/benchmarks/${file}`).then(res => res.json())
+    );
+
+    const allData = await Promise.all(filePromises);
+
+    // Sort by timestamp (newest first)
+    allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+
+    const transformed = allData.map(data => ({
+      title: data.model, // From your JSON
+      icon: '🤖', // (Optional) Set a default or better based on device/model
+      description: `Tested on ${data.device} using ${data['model-category']}.`,
+      category: data['model-category'],
+      carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
+      accuracy: data.dataset_info ? `${data.dataset_info[1]}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+      useCase: guessUseCase(data['model-category']), // We'll define this below too
+      raw: data // Keep original data in case you need in lightbox
+    }));
+
+    setModels(transformed);
+  };
+  // Helper to label carbon footprint
+  const getCarbonFootprintLabel = (co2) => {
+    if (co2 < 0.01) return 'Very Low';
+    if (co2 < 0.05) return 'Low';
+    if (co2 < 0.1) return 'Moderate';
+    return 'High';
+  };
+
+  // Helper to guess use case based on model category
+  const guessUseCase = (category) => {
+    switch (category.toLowerCase()) {
+      case 'classification':
+        return 'Image Classification, Object Detection';
+      case 'segmentation':
+        return 'Semantic Segmentation, Medical Imaging';
+      case 'detection':
+        return 'Object Detection, Face Detection';
+      default:
+        return 'General ML Tasks';
+    }
+  };
+  fetchBenchmarks();
+}, []);
 
 
  // Animate cards appearing one by one
@@ -296,7 +351,7 @@ export default function HomePage() {
 
 
      <div className="card-grid">
-       {filteredModels.map((model, index) => (
+       {filteredModels.map((x, index) => (
          <div
            key={index}
            className="card-container"
@@ -307,24 +362,24 @@ export default function HomePage() {
            }}
          >
            <div className="card">
-             <div className="card-icon">{model.icon}</div>
-             <h2>{model.title}</h2>
-             <div className="model-category">{model.category}</div>
-             <div className="carbon-badge" data-footprint={model.carbonFootprint}>
-               {model.carbonFootprint} Carbon
+             <div className="card-icon">{x.icon}</div>
+             <h2>{x.title}</h2>
+             <div className="model-category">{x.category}</div>
+             <div className="carbon-badge" data-footprint={x.carbonFootprint}>
+               {x.carbonFootprint} Carbon
              </div>
-             <p className="model-description">{model.description}</p>
+             <p className="model-description">{x.description}</p>
              <div className="model-details">
                <div className="detail-item">
                  <span className="detail-label">Accuracy:</span>
-                 <span className="detail-value">{model.accuracy}</span>
+                 <span className="detail-value">{x.accuracy}</span>
                </div>
                <div className="detail-item">
                  <span className="detail-label">Use Case:</span>
-                 <span className="detail-value">{model.useCase.split(',')[0]}</span>
+                 <span className="detail-value">{x.useCase.split(',')[0]}</span>
                </div>
              </div>
-             <button className="learn-more-btn" onClick={() => handleViewDetails(model)}>View Details</button>
+             <button className="learn-more-btn" onClick={() => handleViewDetails(x)}>View Details</button>
            </div>
          </div>
        ))}

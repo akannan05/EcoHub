@@ -1,0 +1,22 @@
+[
+  "mnasnet1_0_run1.json",
+  "mnasnet1_0_run2.json",
+  "mnasnet1_0_run3.json",
+  "mnasnet1_0_run4.json",
+  "mnasnet1_0_run5.json",
+  "mobilenet_v2_run1.json",
+  "mobilenet_v2_run2.json",
+  "mobilenet_v2_run3.json",
+  "mobilenet_v2_run4.json",
+  "mobilenet_v2_run5.json",
+  "shufflenet_v2_x1_0_run1.json",
+  "shufflenet_v2_x1_0_run2.json",
+  "shufflenet_v2_x1_0_run3.json",
+  "shufflenet_v2_x1_0_run4.json",
+  "shufflenet_v2_x1_0_run5.json",
+  "squeezenet1_0_run1.json",
+  "squeezenet1_0_run2.json",
+  "squeezenet1_0_run3.json",
+  "squeezenet1_0_run4.json",
+  "squeezenet1_0_run5.json"
+]

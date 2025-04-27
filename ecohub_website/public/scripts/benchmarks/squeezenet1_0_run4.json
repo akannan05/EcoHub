@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-25T22:38:04.617722",
+    "model": "squeezenet1_0",
+    "device": "rpi-4b",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.20626792192459106,
+        69.4305,
+        1146.3515625
+    ],
+    "ecometrics": [
+        0.031549791157245634,
+        1.4986150799691675e-05,
+        0.0002606287095598552
+    ]
+}
