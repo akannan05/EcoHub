@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:55:23.635249",
+    "model": "densenet161",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.06944105625152588,
+        4.72,
+        3543.8125
+    ],
+    "ecometrics": [
+        0.044004484944873384,
+        2.0902130348814856e-05,
+        0.0003635153104141714
+    ]
+}

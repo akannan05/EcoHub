@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:56:35.345626",
+    "model": "shufflenet_v2_x1_0",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.016898753643035887,
+        1.003,
+        3401.09375
+    ],
+    "ecometrics": [
+        0.011758139265908135,
+        5.585116151306364e-06,
+        9.713245480532807e-05
+    ]
+}

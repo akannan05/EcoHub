@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:54:39.000295",
+    "model": "squeezenet1_0",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.010549817085266113,
+        1.3225,
+        3321.65625
+    ],
+    "ecometrics": [
+        0.007970415221320259,
+        3.7859472301271223e-06,
+        6.584256052394995e-05
+    ]
+}

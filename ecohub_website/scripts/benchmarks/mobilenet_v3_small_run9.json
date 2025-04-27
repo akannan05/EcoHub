@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:57:53.397515",
+    "model": "mobilenet_v3_small",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.038562145233154294,
+        4.948,
+        3680.984375
+    ],
+    "ecometrics": [
+        0.025048742029401994,
+        1.1898152463965945e-05,
+        0.00020692439067766861
+    ]
+}

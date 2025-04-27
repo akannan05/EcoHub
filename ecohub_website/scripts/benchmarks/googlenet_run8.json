@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:56:12.830297",
+    "model": "googlenet",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.018778159618377685,
+        0.7005,
+        3467.140625
+    ],
+    "ecometrics": [
+        0.013017248709996541,
+        6.183193137248356e-06,
+        0.00010753379369127576
+    ]
+}

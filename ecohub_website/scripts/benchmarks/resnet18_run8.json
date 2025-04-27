@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:52:54.888564",
+    "model": "resnet18",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.014013760089874268,
+        1.131,
+        4060.890625
+    ],
+    "ecometrics": [
+        0.010116314623090957,
+        4.805249445968204e-06,
+        8.356955558205573e-05
+    ]
+}

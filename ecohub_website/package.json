@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "npm run generate-index && concurrently \"npm run server\" \"npm run client\"",
-    "generate-index": "node generateIndex.js",
+    "generate-index": "node scripts/generateIndex.js",
     "server": "nodemon backend/server.js",
     "client": "react-scripts start",
     "build": "react-scripts build",

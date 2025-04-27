@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:58:29.690829",
+    "model": "resnext50_32x4d",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.04245325326919556,
+        9.830499999999999,
+        4008.296875
+    ],
+    "ecometrics": [
+        0.02770871851179335,
+        1.3161641293101841e-05,
+        0.00022889810944524942
+    ]
+}

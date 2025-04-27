@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T23:01:05.423043",
+    "model": "efficientnet_b0",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.15041135311126708,
+        24.655500000000004,
+        4023.78125
+    ],
+    "ecometrics": [
+        0.09446493162049187,
+        4.4870842519733635e-05,
+        0.0007803624786040632
+    ]
+}

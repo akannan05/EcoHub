@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:54:21.459346",
+    "model": "vgg16",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.07910168886184693,
+        4.2685,
+        4182.34375
+    ],
+    "ecometrics": [
+        0.050529679059982305,
+        2.4001597553491595e-05,
+        0.00041741908788681033
+    ]
+}

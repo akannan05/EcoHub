@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:53:21.623640",
+    "model": "alexnet",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.009176080226898193,
+        0.8475,
+        4112.765625
+    ],
+    "ecometrics": [
+        0.007232487201690674,
+        3.4354314208030696e-06,
+        5.974663340527077e-05
+    ]
+}

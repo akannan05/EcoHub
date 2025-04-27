@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:55:52.647349",
+    "model": "inception_v3",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.02815796136856079,
+        1.954,
+        3569.0
+    ],
+    "ecometrics": [
+        0.01879031048880683,
+        8.925397482183244e-06,
+        0.00015522430403796945
+    ]
+}

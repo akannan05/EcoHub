@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-26T22:59:42.083190",
+    "model": "mnasnet1_0",
+    "device": "mac-m2-air",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.10061844587326049,
+        24.1775,
+        3847.3125
+    ],
+    "ecometrics": [
+        0.06359330270025465,
+        3.0206818782620956e-05,
+        0.0005253359788281905
+    ]
+}
