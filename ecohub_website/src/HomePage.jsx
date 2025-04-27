@@ -10,6 +10,7 @@ const cards = Array.from({ length: 12 }, (_, i) => ({
 
 export default function HomePage() {
  const [flippedCards, setFlippedCards] = useState({});
+ const [hoveredCard, setHoveredCard] = useState(null);
 
 
  const handleCardClick = (index) => {
@@ -17,6 +18,17 @@ export default function HomePage() {
      ...prev,
      [index]: !prev[index]
    }));
+   // Clear hover state when clicked
+   setHoveredCard(null);
+ };
+
+
+ const handleCardHover = (index, isHovering) => {
+   if (isHovering && !flippedCards[index]) {
+     setHoveredCard(index);
+   } else if (!isHovering && hoveredCard === index) {
+     setHoveredCard(null);
+   }
  };
 
 
@@ -35,8 +47,10 @@ export default function HomePage() {
        {cards.map((card, index) => (
          <div
            key={index}
-           className={`card-container ${flippedCards[index] ? 'flipped' : ''}`}
+           className={`card-container ${flippedCards[index] ? 'flipped' : ''} ${hoveredCard === index ? 'hovered' : ''}`}
            onClick={() => handleCardClick(index)}
+           onMouseEnter={() => handleCardHover(index, true)}
+           onMouseLeave={() => handleCardHover(index, false)}
          >
            <div className="card">
              <div className="card-front">
