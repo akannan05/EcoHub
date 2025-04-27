@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-25T23:34:45.965440",
+    "model": "mnasnet1_0",
+    "device": "rpi-4b",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.21041175842285156,
+        69.119,
+        1087.54296875
+    ],
+    "ecometrics": [
+        0.03205537547667821,
+        1.5226303351422149e-05,
+        0.00026480527567690693
+    ]
+}

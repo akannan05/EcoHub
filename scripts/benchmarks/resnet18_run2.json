@@ -1,0 +1,20 @@
+{
+    "timestamp": "2025-04-25T23:28:03.561551",
+    "model": "resnet18",
+    "device": "rpi-4b",
+    "model-category": "classification",
+    "dataset-info": [
+        100,
+        10
+    ],
+    "efficiency-info": [
+        0.2330526065826416,
+        69.696,
+        1144.05078125
+    ],
+    "ecometrics": [
+        0.03526944162448247,
+        1.6752984771629173e-05,
+        0.00029135625689789867
+    ]
+}
