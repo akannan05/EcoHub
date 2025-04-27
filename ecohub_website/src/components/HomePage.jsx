@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './HomePage.css';
-import { FaSearch, FaTimes, FaArrowUp, FaLeaf, FaChartLine, FaBrain, FaTimes as FaClose } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaArrowUp, FaLeaf, FaChartLine, FaBrain, FaTimes as FaClose, FaRegCopy } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 
 // // ML models data with environmental impact information
@@ -118,22 +120,25 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function HomePage() {
- const [searchTerm, setSearchTerm] = useState('');
- const [selectedCategory, setSelectedCategory] = useState('All');
- const [visibleModels, setVisibleModels] = useState([]);
- const [isLoading, setIsLoading] = useState(true);
- const [showScrollTop, setShowScrollTop] = useState(false);
- const [activeTab, setActiveTab] = useState('Models');
- const [selectedModel, setSelectedModel] = useState(null);
- const [showLightbox, setShowLightbox] = useState(false);
- 
- const [models, setModels] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [visibleModels, setVisibleModels] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeTab, setActiveTab] = useState('Models');
+  const [selectedModel, setSelectedModel] = useState(null);
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [showScriptModal, setShowScriptModal] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const scriptContent = `from torchvision.models import resnet50, ResNet50_Weights\n\n# Using pretrained weights:\nresnet50(weights=ResNet50_Weights.IMAGENET1K_V1)\nresnet50(weights=\"IMAGENET1K_V1\")\nresnet50(pretrained=True)  # deprecated\nresnet50(True)  # deprecated\n\n# Using no weights:\nresnet50(weights=None)\nresnet50()\nresnet50(pretrained=False)  # deprecated\nresnet50(False)  # deprecated\n`;
 
- const [stats, setStats] = useState({
-   totalModels: models.length,
-   lowCarbonModels: models.filter(m => m.carbonFootprint === 'Low' || m.carbonFootprint === 'Very Low').length,
-   highAccuracyModels: models.filter(m => m.accuracy !== 'N/A' && parseInt(m.accuracy) >= 90).length
- });
+  const [models, setModels] = useState([]);
+
+  const [stats, setStats] = useState({
+    totalModels: models.length,
+    lowCarbonModels: models.filter(m => m.carbonFootprint === 'Low' || m.carbonFootprint === 'Very Low').length,
+    highAccuracyModels: models.filter(m => m.accuracy !== 'N/A' && parseInt(m.accuracy) >= 90).length
+  });
   const scrollTopRef = useRef(null);
   const navigate = useNavigate();
 
@@ -154,58 +159,58 @@ export default function HomePage() {
     return matchesSearch && matchesCategory;
   });
 
- useEffect(() => {
-  const fetchBenchmarks = async () => {
-    const indexRes = await fetch('/scripts/benchmarks/index.json');
-    const files = await indexRes.json();
+  useEffect(() => {
+    const fetchBenchmarks = async () => {
+      const indexRes = await fetch('/scripts/benchmarks/index.json');
+      const files = await indexRes.json();
 
-    const filePromises = files.map(file =>
-      fetch(`/scripts/benchmarks/${file}`).then(res => res.json())
-    );
+      const filePromises = files.map(file =>
+        fetch(`/scripts/benchmarks/${file}`).then(res => res.json())
+      );
 
-    const allData = await Promise.all(filePromises);
+      const allData = await Promise.all(filePromises);
 
-    // Sort by timestamp (newest first)
-    allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      // Sort by timestamp (newest first)
+      allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-    const transformed = allData.map(data => ({
-      title: data.model, // From your JSON
-      icon: '🤖', // (Optional) Set a default or better based on device/model
-      description: `Tested on ${data.device} using ${data['model-category']}.`,
-      category: data['model-category'],
-      carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
-      efficiency: data['efficiency-info'] ? `${data['efficiency-info'][1].toFixed(2)}%` : 'N/A', // Maybe adjust based on your dataset info meaning
-      inference: data['efficiency-info'] ? `${data['efficiency-info'][0].toFixed(2)}s` : 'N/A',
-      memory: data['efficiency-info'] ? `${data['efficiency-info'][2].toFixed(2)}MB` : 'N/A',
-      useCase: guessUseCase(data['model-category']), // We'll define this below too
-      raw: data // Keep original data in case you need in lightbox
-    }));
+      const transformed = allData.map(data => ({
+        title: data.model, // From your JSON
+        icon: '🤖', // (Optional) Set a default or better based on device/model
+        description: `Tested on ${data.device} using ${data['model-category']}.`,
+        category: data['model-category'],
+        carbonFootprint: getCarbonFootprintLabel(data.ecometrics[0]), // We'll define this below
+        efficiency: data['efficiency-info'] ? `${data['efficiency-info'][1].toFixed(2)}%` : 'N/A', // Maybe adjust based on your dataset info meaning
+        inference: data['efficiency-info'] ? `${data['efficiency-info'][0].toFixed(2)}s` : 'N/A',
+        memory: data['efficiency-info'] ? `${data['efficiency-info'][2].toFixed(2)}MB` : 'N/A',
+        useCase: guessUseCase(data['model-category']), // We'll define this below too
+        raw: data // Keep original data in case you need in lightbox
+      }));
 
-    setModels(transformed);
-  };
-  // Helper to label carbon footprint
-  const getCarbonFootprintLabel = (co2) => {
-    if (co2 < 0.01) return 'Very Low';
-    if (co2 < 0.05) return 'Low';
-    if (co2 < 0.1) return 'Moderate';
-    return 'High';
-  };
+      setModels(transformed);
+    };
+    // Helper to label carbon footprint
+    const getCarbonFootprintLabel = (co2) => {
+      if (co2 < 0.01) return 'Very Low';
+      if (co2 < 0.05) return 'Low';
+      if (co2 < 0.1) return 'Moderate';
+      return 'High';
+    };
 
-  // Helper to guess use case based on model category
-  const guessUseCase = (category) => {
-    switch (category.toLowerCase()) {
-      case 'classification':
-        return 'Image Classification, Object Detection';
-      case 'segmentation':
-        return 'Semantic Segmentation, Medical Imaging';
-      case 'detection':
-        return 'Object Detection, Face Detection';
-      default:
-        return 'General ML Tasks';
-    }
-  };
-  fetchBenchmarks();
-}, []);
+    // Helper to guess use case based on model category
+    const guessUseCase = (category) => {
+      switch (category.toLowerCase()) {
+        case 'classification':
+          return 'Image Classification, Object Detection';
+        case 'segmentation':
+          return 'Semantic Segmentation, Medical Imaging';
+        case 'detection':
+          return 'Object Detection, Face Detection';
+        default:
+          return 'General ML Tasks';
+      }
+    };
+    fetchBenchmarks();
+  }, []);
 
 
   // Animate cards appearing one by one
@@ -467,6 +472,66 @@ export default function HomePage() {
                   )}
                 </ul>
               </div>
+
+              {/* Python Script Button */}
+              <button
+                className="learn-more-btn"
+                style={{ marginTop: 24 }}
+                onClick={() => setShowScriptModal(true)}
+              >
+                Python Script
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Script Modal */}
+      {showScriptModal && (
+        <div className="lightbox-overlay active" style={{ zIndex: 2000 }}>
+          <div className="lightbox-content" style={{ maxWidth: 700, textAlign: 'center', position: 'relative' }}>
+            <button className="lightbox-close" onClick={() => setShowScriptModal(false)}>✕</button>
+            <h2 style={{ marginBottom: 24 }}>Python Script</h2>
+            <div style={{ position: 'relative', textAlign: 'left' }}>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(scriptContent);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 1200);
+                }}
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  right: 16,
+                  background: '#f1f5f9',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: 8,
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+                aria-label="Copy to clipboard"
+              >
+                <FaRegCopy size={20} />
+              </button>
+              {copied && (
+                <span style={{ position: 'absolute', top: 18, right: 50, color: '#10b981', fontWeight: 600 }}>Copied!</span>
+              )}
+              <SyntaxHighlighter
+                language="python"
+                style={vscDarkPlus}
+                customStyle={{
+                  borderRadius: 12,
+                  padding: 24,
+                  fontSize: 16,
+                  minHeight: 320,
+                  marginTop: 0,
+                  marginBottom: 0,
+                  background: '#181c23'
+                }}
+              >
+                {scriptContent}
+              </SyntaxHighlighter>
             </div>
           </div>
         </div>
