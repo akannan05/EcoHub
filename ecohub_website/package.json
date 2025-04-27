@@ -20,8 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start": "npm run generate-index && concurrently \"npm run server\" \"npm run client\"",
     "generate-index": "node generateIndex.js",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon backend/server.js",
     "client": "react-scripts start",
     "build": "react-scripts build",
