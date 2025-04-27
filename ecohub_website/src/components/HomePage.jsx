@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './HomePage.css';
-import { FaSearch, FaTimes, FaArrowUp, FaLeaf, FaChartLine, FaBrain, FaTimes as FaClose } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaArrowUp, FaLeaf, FaChartLine, FaBrain, FaTimes as FaClose, FaRegCopy } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const emojis = ['🌱', '🦁', '🌤️', '🎨', '🔍', '📜', '🔎', '⚡', '🛒', '🧠', '🖼️', '🌞', '🤖']
 // // ML models data with environmental impact information
@@ -126,8 +128,9 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState('Models');
   const [selectedModel, setSelectedModel] = useState(null);
   const [showLightbox, setShowLightbox] = useState(false);
-  const [showUploadModal, setShowUploadModal] = useState(false);
-  const [uploadFile, setUploadFile] = useState(null);
+  const [showScriptModal, setShowScriptModal] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const scriptContent = `from torchvision.models import resnet50, ResNet50_Weights\n\n# Using pretrained weights:\nresnet50(weights=ResNet50_Weights.IMAGENET1K_V1)\nresnet50(weights=\"IMAGENET1K_V1\")\nresnet50(pretrained=True)  # deprecated\nresnet50(True)  # deprecated\n\n# Using no weights:\nresnet50(weights=None)\nresnet50()\nresnet50(pretrained=False)  # deprecated\nresnet50(False)  # deprecated\n`;
 
   const [models, setModels] = useState([]);
 
@@ -167,8 +170,8 @@ export default function HomePage() {
 
       const allData = await Promise.all(filePromises);
 
-    // Sort by timestamp (newest first)
-    allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      // Sort by timestamp (newest first)
+      allData.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
 
     const transformed = allData.map((data, index) => ({
@@ -472,34 +475,66 @@ export default function HomePage() {
                   )}
                 </ul>
               </div>
-              {/* Deploy My Data Button */}
+
+              {/* Python Script Button */}
               <button
                 className="learn-more-btn"
                 style={{ marginTop: 24 }}
-                onClick={() => setShowUploadModal(true)}
+                onClick={() => setShowScriptModal(true)}
               >
-                Deploy My Data
+                Python Script
               </button>
-              {/* Upload Modal */}
-              {showUploadModal && (
-                <div className="lightbox-overlay active" style={{ zIndex: 2000 }}>
-                  <div className="lightbox-content" style={{ maxWidth: 400, textAlign: 'center' }}>
-                    <button className="lightbox-close" onClick={() => setShowUploadModal(false)}>✕</button>
-                    <h2>Upload Your Data</h2>
-                    <form>
-                      <input
-                        type="file"
-                        onChange={e => setUploadFile(e.target.files[0])}
-                        required
-                        style={{ margin: '20px 0' }}
-                      />
-                      <button type="button" className="learn-more-btn" style={{ marginTop: 10 }} disabled={!uploadFile}>
-                        Upload & Deploy
-                      </button>
-                    </form>
-                  </div>
-                </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Script Modal */}
+      {showScriptModal && (
+        <div className="lightbox-overlay active" style={{ zIndex: 2000 }}>
+          <div className="lightbox-content" style={{ maxWidth: 700, textAlign: 'center', position: 'relative' }}>
+            <button className="lightbox-close" onClick={() => setShowScriptModal(false)}>✕</button>
+            <h2 style={{ marginBottom: 24 }}>Python Script</h2>
+            <div style={{ position: 'relative', textAlign: 'left' }}>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(scriptContent);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 1200);
+                }}
+                style={{
+                  position: 'absolute',
+                  top: 16,
+                  right: 16,
+                  background: '#f1f5f9',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: 8,
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+                aria-label="Copy to clipboard"
+              >
+                <FaRegCopy size={20} />
+              </button>
+              {copied && (
+                <span style={{ position: 'absolute', top: 18, right: 50, color: '#10b981', fontWeight: 600 }}>Copied!</span>
               )}
+              <SyntaxHighlighter
+                language="python"
+                style={vscDarkPlus}
+                customStyle={{
+                  borderRadius: 12,
+                  padding: 24,
+                  fontSize: 16,
+                  minHeight: 320,
+                  marginTop: 0,
+                  marginBottom: 0,
+                  background: '#181c23'
+                }}
+              >
+                {scriptContent}
+              </SyntaxHighlighter>
             </div>
           </div>
         </div>
